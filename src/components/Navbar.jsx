@@ -1,50 +1,39 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  Navbar as BSNavbar,
+  Nav,
+  Container,
+  NavDropdown,
+} from "react-bootstrap";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <nav className="navbar">
-      <div className="nav-container">
-        <h2 className="logo">League of Legends</h2>
-
-        {/* Desktop Links */}
-        <ul className={`nav-links ${isOpen ? "active" : ""}`}>
-          <li>
-            <Link to="/" onClick={() => setIsOpen(false)}>
+    <BSNavbar bg="dark" variant="dark" expand="md" sticky="top">
+      <Container>
+        <BSNavbar.Brand as={Link} to="/">
+          League of Legends
+        </BSNavbar.Brand>
+        <BSNavbar.Toggle aria-controls="basic-navbar-nav" />
+        <BSNavbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto">
+            <Nav.Link as={Link} to="/">
               Main
-            </Link>
-          </li>
-          <li>
-            <Link to="/about" onClick={() => setIsOpen(false)}>
+            </Nav.Link>
+            <Nav.Link as={Link} to="/about">
               About
-            </Link>
-          </li>
-          <li>
-            <Link to="/page1" onClick={() => setIsOpen(false)}>
+            </Nav.Link>
+            <Nav.Link as={Link} to="/page1">
               Page 1
-            </Link>
-          </li>
-          <li>
-            <Link to="/page2" onClick={() => setIsOpen(false)}>
+            </Nav.Link>
+            <Nav.Link as={Link} to="/page2">
               Page 2
-            </Link>
-          </li>
-          <li>
-            <Link to="/page3" onClick={() => setIsOpen(false)}>
+            </Nav.Link>
+            <Nav.Link as={Link} to="/page3">
               Page 3
-            </Link>
-          </li>
-        </ul>
-
-        {/* Mobile Hamburger */}
-        <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-    </nav>
+            </Nav.Link>
+          </Nav>
+        </BSNavbar.Collapse>
+      </Container>
+    </BSNavbar>
   );
 }
