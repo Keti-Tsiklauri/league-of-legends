@@ -10,8 +10,19 @@
 
 .hero-card img {
   transition: transform 0.3s ease;
+  object-fit: cover;
+  height: 200px; /* uniform image height */
 }
 
 .hero-card-wrapper:hover img {
   transform: scale(1.05);
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-text.flex-grow-1 {
+  flex-grow: 1;
 }

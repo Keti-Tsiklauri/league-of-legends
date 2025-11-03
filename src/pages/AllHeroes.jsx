@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeroList from "../components/HeroList";
 
 export default function AllHeroes() {
@@ -8,24 +8,28 @@ export default function AllHeroes() {
   useEffect(() => {
     const fetchChampions = async () => {
       try {
-        // Get latest version
-        const versionsRes = await fetch(
-          "https://ddragon.leagueoflegends.com/api/versions.json"
-        );
-        const versions = await versionsRes.json();
-        const latestVersion = versions[0];
-
-        // Fetch champion data
+        // 1️⃣ Fetch all champion summaries
         const res = await fetch(
-          `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/en_US/champion.json`
+          "https://ddragon.leagueoflegends.com/cdn/13.23.1/data/en_US/champion.json"
         );
         const data = await res.json();
-        const champsArray = Object.values(data.data);
+        const championList = Object.values(data.data);
 
-        setChampions(champsArray);
+        // 2️⃣ Fetch each champion’s details (abilities)
+        const detailedChampions = await Promise.all(
+          championList.map(async (champ) => {
+            const res = await fetch(
+              `https://ddragon.leagueoflegends.com/cdn/13.23.1/data/en_US/champion/${champ.id}.json`
+            );
+            const champData = await res.json();
+            return champData.data[champ.id];
+          })
+        );
+
+        setChampions(detailedChampions);
         setLoading(false);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching champions:", error);
         setLoading(false);
       }
     };
@@ -33,8 +37,7 @@ export default function AllHeroes() {
     fetchChampions();
   }, []);
 
-  if (loading)
-    return <p className="text-center mt-5">Loading all champions...</p>;
+  if (loading) return <p className="text-center mt-5">Loading champions...</p>;
 
   return (
     <HeroList champions={champions} title="All League of Legends Champions" />

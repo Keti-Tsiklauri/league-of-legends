@@ -8,25 +8,45 @@ export default function OldHeroes() {
   useEffect(() => {
     const fetchChampions = async () => {
       try {
+        // 1️⃣ Get latest version
         const versionsRes = await fetch(
           "https://ddragon.leagueoflegends.com/api/versions.json"
         );
         const versions = await versionsRes.json();
         const latestVersion = versions[0];
 
+        // 2️⃣ Fetch all champions
         const res = await fetch(
           `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/en_US/champion.json`
         );
         const data = await res.json();
         const champsArray = Object.values(data.data);
 
-        const oldHeroes = ["Annie", "Ashe", "Garen", "MasterYi", "Alistar"];
-        const old = champsArray.filter((c) => oldHeroes.includes(c.name));
+        // 3️⃣ Filter only old heroes
+        const oldHeroesNames = [
+          "Annie",
+          "Ashe",
+          "Garen",
+          "MasterYi",
+          "Alistar",
+        ];
+        const old = champsArray.filter((c) => oldHeroesNames.includes(c.name));
 
-        setChampions(old);
+        // 4️⃣ Fetch details for each old hero
+        const detailedChampions = await Promise.all(
+          old.map(async (champ) => {
+            const res = await fetch(
+              `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/en_US/champion/${champ.id}.json`
+            );
+            const champData = await res.json();
+            return champData.data[champ.id];
+          })
+        );
+
+        setChampions(detailedChampions);
         setLoading(false);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching old champions:", error);
         setLoading(false);
       }
     };
