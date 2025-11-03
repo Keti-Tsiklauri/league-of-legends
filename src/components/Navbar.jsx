@@ -22,14 +22,17 @@ export default function Navbar() {
             <Nav.Link as={Link} to="/about">
               About
             </Nav.Link>
-            <Nav.Link as={Link} to="/page1">
-              Page 1
+            <Nav.Link as={Link} to="/all-heroes">
+              All heroes
             </Nav.Link>
-            <Nav.Link as={Link} to="/page2">
-              Page 2
+            <Nav.Link as={Link} to="/special-heroes">
+              Special heroes
             </Nav.Link>
-            <Nav.Link as={Link} to="/page3">
-              Page 3
+            <Nav.Link as={Link} to="/old-heroes">
+              Old heroes
+            </Nav.Link>
+            <Nav.Link as={Link} to="/new-heroes">
+              New heroes
             </Nav.Link>
           </Nav>
         </BSNavbar.Collapse>

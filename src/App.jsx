@@ -2,9 +2,13 @@ import Navbar from "./components/NavBar";
 import { Routes, Route } from "react-router-dom";
 import Main from "./pages/Main";
 import About from "./pages/About";
-import Page1 from "./pages/Page1";
-import Page2 from "./pages/Page2";
-import Page3 from "./pages/Page3";
+import Page1 from "./pages/SpecialHeroes";
+import Page2 from "./pages/OldHeroes";
+import Page3 from "./pages/NewHeroes";
+import SpecialHeroes from "./pages/SpecialHeroes";
+import OldHeroes from "./pages/OldHeroes";
+import NewHeroes from "./pages/NewHeroes";
+import AllHeroes from "./pages/AllHeroes";
 
 export default function App() {
   return (
@@ -14,9 +18,10 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/about" element={<About />} />
-        <Route path="/page1" element={<Page1 />} />
-        <Route path="/page2" element={<Page2 />} />
-        <Route path="/page3" element={<Page3 />} />
+        <Route path="/all-heroes" element={<AllHeroes />} />
+        <Route path="/special-heroes" element={<SpecialHeroes />} />
+        <Route path="/old-heroes" element={<OldHeroes />} />
+        <Route path="/new-heroes" element={<NewHeroes />} />
       </Routes>
     </>
   );
