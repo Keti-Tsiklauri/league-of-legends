@@ -34,6 +34,9 @@ export default function Navbar() {
             <Nav.Link as={Link} to="/new-heroes">
               New heroes
             </Nav.Link>
+            <Nav.Link as={Link} to="/cart">
+              Cart
+            </Nav.Link>
           </Nav>
         </BSNavbar.Collapse>
       </Container>

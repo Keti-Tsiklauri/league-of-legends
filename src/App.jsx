@@ -9,6 +9,7 @@ import SpecialHeroes from "./pages/SpecialHeroes";
 import OldHeroes from "./pages/OldHeroes";
 import NewHeroes from "./pages/NewHeroes";
 import AllHeroes from "./pages/AllHeroes";
+import Cart from "./pages/Cart";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/special-heroes" element={<SpecialHeroes />} />
         <Route path="/old-heroes" element={<OldHeroes />} />
         <Route path="/new-heroes" element={<NewHeroes />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </>
   );
