@@ -63,6 +63,7 @@ export default function Main() {
               value={review}
               onChange={(e) => setReview(e.target.value)}
               rows={3}
+              style={{ resize: "none" }}
             ></textarea>
           </div>
           <button type="submit" className="btn btn-primary">

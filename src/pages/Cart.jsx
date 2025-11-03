@@ -27,14 +27,14 @@ export default function Cart() {
 
   return (
     <div
-      className="container mt-5 d-flex flex-column"
-      style={{ minHeight: "80vh" }}
+      className="container mt-5"
+      style={{ minHeight: "80vh", paddingBottom: "100px" }}
     >
       <h1 className="display-4 mb-4 text-center">Your Cart</h1>
 
       {/* Scrollable list */}
       <div
-        className="table-responsive shadow-sm rounded mb-5"
+        className="table-responsive shadow-sm rounded"
         style={{ maxHeight: "60vh", overflowY: "auto" }}
       >
         <table className="table table-hover mb-0">
@@ -64,12 +64,11 @@ export default function Cart() {
         </table>
       </div>
 
-      {/* Fixed total price at bottom */}
       <div
-        className="bg-white shadow-lg rounded d-flex flex-column flex-sm-row justify-content-between align-items-center p-3 gap-2"
+        className="bg-white shadow-lg rounded d-flex justify-content-between align-items-center p-3"
         style={{
           position: "fixed",
-          bottom: 10,
+          bottom: 80,
           left: "50%",
           transform: "translateX(-50%)",
           width: "90%",
@@ -78,12 +77,8 @@ export default function Cart() {
           border: "1px solid #ddd",
         }}
       >
-        <span className="fs-6 fs-sm-5 fw-semibold text-center text-sm-start">
-          Total Heroes: {cart.length}
-        </span>
-        <span className="fs-6 fs-sm-5 fw-bold text-center text-sm-end">
-          Total Price: {totalPrice} RP
-        </span>
+        <span className="fw-semibold">Total Heroes: {cart.length}</span>
+        <span className="fw-bold">Total Price: {totalPrice} RP</span>
       </div>
     </div>
   );

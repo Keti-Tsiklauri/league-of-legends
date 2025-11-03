@@ -8,12 +8,6 @@
   cursor: pointer;
 }
 
-.hero-card img {
-  transition: transform 0.3s ease;
-  object-fit: cover;
-  height: 200px; /* uniform image height */
-}
-
 .hero-card-wrapper:hover img {
   transform: scale(1.05);
 }
@@ -25,4 +19,18 @@
 
 .card-text.flex-grow-1 {
   flex-grow: 1;
+}
+.hero-card {
+  overflow: hidden; /* keep everything inside the card */
+}
+
+.hero-card img {
+  transition: transform 0.3s ease;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.hero-card:hover img {
+  transform: scale(1.05); /* slight zoom on hover */
 }
