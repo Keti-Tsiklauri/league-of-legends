@@ -33,25 +33,27 @@ export default function OldHeroes() {
           "Master Yi",
           "Alistar",
         ];
-
         const old = champsArray.filter((c) => oldHeroesNames.includes(c.name));
 
-        const detailedChampions = await Promise.all(
+        const detailedResults = await Promise.allSettled(
           old.map(async (champ) => {
             const res = await fetch(
               `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/en_US/champion/${champ.id}.json`
             );
             if (!res.ok)
               throw new Error(`Failed to fetch data for ${champ.id}`);
-
             const champData = await res.json();
             return champData.data[champ.id];
           })
         );
 
-        setChampions(detailedChampions);
-      } catch (error) {
-        console.error("Error fetching old champions:", error);
+        const successfulChampions = detailedResults
+          .filter((result) => result.status === "fulfilled")
+          .map((result) => result.value);
+
+        setChampions(successfulChampions);
+      } catch (err) {
+        console.error("Error fetching old champions:", err);
         setError("Unable to load old champions. Please try again later.");
       } finally {
         setLoading(false);

@@ -14,6 +14,7 @@ export default function SpecialHeroes() {
           "https://ddragon.leagueoflegends.com/api/versions.json"
         );
         if (!versionsRes.ok) throw new Error("Failed to fetch versions");
+
         const versions = await versionsRes.json();
         const latestVersion = versions[0];
 
@@ -21,6 +22,7 @@ export default function SpecialHeroes() {
           `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/en_US/champion.json`
         );
         if (!res.ok) throw new Error("Failed to fetch champions list");
+
         const data = await res.json();
         const champsArray = Object.values(data.data);
 
@@ -29,19 +31,25 @@ export default function SpecialHeroes() {
           specialNames.includes(c.name)
         );
 
-        const detailedChampions = await Promise.all(
+        const detailedResults = await Promise.allSettled(
           special.map(async (champ) => {
             const res = await fetch(
               `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/en_US/champion/${champ.id}.json`
             );
+            if (!res.ok)
+              throw new Error(`Failed to fetch data for ${champ.id}`);
             const champData = await res.json();
             return champData.data[champ.id];
           })
         );
 
-        setChampions(detailedChampions);
-      } catch (error) {
-        console.error("Error fetching special champions:", error);
+        const successfulChampions = detailedResults
+          .filter((result) => result.status === "fulfilled")
+          .map((result) => result.value);
+
+        setChampions(successfulChampions);
+      } catch (err) {
+        console.error("Error fetching special champions:", err);
         setError("Unable to load special champions. Please try again later.");
       } finally {
         setLoading(false);
