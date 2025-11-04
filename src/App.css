@@ -3,14 +3,17 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden;
+
   font-family: Arial, sans-serif;
+}
+html {
+  overflow-y: scroll;
 }
 
 .app-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .app-content {
