@@ -24,7 +24,7 @@ body {
   color: #fff;
   position: sticky;
   top: 0;
-  width: 100%;
+  width: auto;
   z-index: 1000;
   border-bottom: 1px solid #333;
   margin: 0;
