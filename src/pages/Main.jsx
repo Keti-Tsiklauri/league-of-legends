@@ -1,23 +1,32 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import "./Main.css";
 
 export default function Main() {
   const [name, setName] = useState("");
   const [review, setReview] = useState("");
   const [reviews, setReviews] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    const storedReviews = JSON.parse(localStorage.getItem("reviews")) || [];
-    setReviews(storedReviews);
+    try {
+      const storedReviews = JSON.parse(localStorage.getItem("reviews")) || [];
+      setReviews(storedReviews);
+    } catch (error) {
+      console.error("Invalid JSON in localStorage:", error);
+      setReviews([]);
+    }
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !review) return;
+    if (!name || !review) {
+      setErrorMessage("Please fill in both your name and review.");
+      return;
+    }
 
+    setErrorMessage("");
     const newReview = { name, review, id: Date.now() };
     const updatedReviews = [...reviews, newReview];
-
     setReviews(updatedReviews);
     localStorage.setItem("reviews", JSON.stringify(updatedReviews));
 
@@ -25,61 +34,75 @@ export default function Main() {
     setReview("");
   };
 
-  return (
-    <div className="container mt-5">
-      <h1 className="display-4 text-center mb-4">
-        Welcome to League of Legends Website
-      </h1>
+  const handleClear = () => {
+    setName("");
+    setReview("");
+    setErrorMessage("");
+  };
 
-      {/* Official Download Button */}
-      <div className="text-center mb-5">
+  return (
+    <div className="main-container">
+      <h1 className="main-title">Welcome to League of Legends Website</h1>
+
+      <div className="download-section">
         <a
           href="https://www.leagueoflegends.com/en-us/download/"
           target="_blank"
           rel="noopener noreferrer"
-          className="btn btn-danger btn-lg"
+          className="download-btn"
         >
           Download League of Legends
         </a>
       </div>
 
-      {/* Review Form */}
-      <div className="card shadow-sm p-4 mb-5">
-        <h3 className="mb-3">Leave Your Review</h3>
+      <div className="review-form-card">
+        <h3>Leave Your Review</h3>
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Your Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
+          <input
+            type="text"
+            className="input-field"
+            placeholder="Your Name"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+              if (e.target.value === "" && review === "") {
+                setErrorMessage("");
+              }
+            }}
+          />
+          <textarea
+            className="textarea-field"
+            placeholder="Your Review"
+            value={review}
+            onChange={(e) => {
+              setReview(e.target.value);
+              if (e.target.value === "" && name === "") {
+                setErrorMessage("");
+              }
+            }}
+            rows={3}
+          ></textarea>
+
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+          <div className="button-group">
+            <button type="submit" className="submit-btn">
+              Submit Review
+            </button>
+            <button type="button" onClick={handleClear} className="clear-btn">
+              Clear
+            </button>
           </div>
-          <div className="mb-3">
-            <textarea
-              className="form-control"
-              placeholder="Your Review"
-              value={review}
-              onChange={(e) => setReview(e.target.value)}
-              rows={3}
-              style={{ resize: "none" }}
-            ></textarea>
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Submit Review
-          </button>
         </form>
       </div>
 
-      {/* Display Reviews */}
-      <div>
-        <h3 className="mb-3">Reviews</h3>
+      <div className="reviews-section">
+        <h3>Reviews</h3>
         {reviews.length === 0 ? (
           <p>No reviews yet.</p>
         ) : (
           reviews.map((r) => (
-            <div key={r.id} className="card mb-2 p-3 shadow-sm">
+            <div key={r.id} className="review-card">
               <strong>{r.name}</strong>
               <p>{r.review}</p>
             </div>

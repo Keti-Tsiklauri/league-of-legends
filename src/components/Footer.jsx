@@ -1,41 +1,36 @@
 import React from "react";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
+import "./Footer.css";
 
 export default function Footer() {
   return (
-    <footer className="bg-dark text-white py-4 mt-5">
-      <div className="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-        <p className="mb-2 mb-md-0">
+    <footer className="footer">
+      <div className="footer-container">
+        <p className="footer-text">
           &copy; {new Date().getFullYear()} League of Legends Fan Site
         </p>
-
-        <div className="d-flex gap-3">
+        <div className="social-icons">
           <a
             href="https://www.facebook.com/LeagueOfLegends"
             target="_blank"
             rel="noopener noreferrer"
-            className="social-icon bg-primary rounded-circle d-flex justify-content-center align-items-center"
-            style={{ width: 40, height: 40 }}
+            className="social-icon facebook"
           >
             <FaFacebook color="white" />
           </a>
-
           <a
             href="https://twitter.com/LeagueOfLegends"
             target="_blank"
             rel="noopener noreferrer"
-            className="social-icon bg-info rounded-circle d-flex justify-content-center align-items-center"
-            style={{ width: 40, height: 40 }}
+            className="social-icon twitter"
           >
             <FaTwitter color="white" />
           </a>
-
           <a
             href="https://www.instagram.com/leagueoflegends/"
             target="_blank"
             rel="noopener noreferrer"
-            className="social-icon bg-danger rounded-circle d-flex justify-content-center align-items-center"
-            style={{ width: 40, height: 40 }}
+            className="social-icon instagram"
           >
             <FaInstagram color="white" />
           </a>

@@ -1,7 +1,10 @@
+import React from "react";
+import "./About.css";
+
 export default function About() {
   return (
-    <div className="container mt-5">
-      <h1 className="display-4 mb-4 text-center">About League of Legends</h1>
+    <div className="about-container">
+      <h1 className="about-title">About League of Legends</h1>
 
       <p>
         <strong>League of Legends</strong> (LoL) is a multiplayer online battle
@@ -10,7 +13,7 @@ export default function About() {
         world.
       </p>
 
-      <h3 className="mt-4">History & Creation</h3>
+      <h2 className="section-title">History & Creation</h2>
       <p>
         League of Legends was created by Riot Games, founded by Brandon Beck and
         Marc Merrill in 2006. The game was inspired by the Warcraft III mod
@@ -19,7 +22,7 @@ export default function About() {
         master.
       </p>
 
-      <h3 className="mt-4">Gameplay & Features</h3>
+      <h2 className="section-title">Gameplay & Features</h2>
       <p>
         Players assume the role of a "champion" with unique abilities, and work
         in teams to destroy the opposing team's Nexus, the core building located
@@ -28,7 +31,7 @@ export default function About() {
         their own lore and abilities.
       </p>
 
-      <h3 className="mt-4">Popularity & User Base</h3>
+      <h2 className="section-title">Popularity & User Base</h2>
       <p>
         LoL has millions of active players worldwide. Riot Games reports that at
         peak times, there are over 8 million players online simultaneously,
@@ -37,7 +40,7 @@ export default function About() {
         Championship, which attracts millions of viewers each year.
       </p>
 
-      <h3 className="mt-4">Why It's Considered the Best</h3>
+      <h2 className="section-title">Why It's Considered the Best</h2>
       <ul>
         <li>Constant updates and new champions keep the game fresh.</li>
         <li>Deep strategic gameplay combined with fast-paced action.</li>
@@ -48,7 +51,7 @@ export default function About() {
         </li>
       </ul>
 
-      <p className="mt-4">
+      <p>
         League of Legends has had a huge impact on gaming culture, shaping the
         MOBA genre and esports as we know them today.
       </p>

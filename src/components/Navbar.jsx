@@ -1,45 +1,59 @@
-import { Link } from "react-router-dom";
-import {
-  Navbar as BSNavbar,
-  Nav,
-  Container,
-  NavDropdown,
-} from "react-bootstrap";
-
+import { NavLink } from "react-router-dom";
+import "./Navbar.css";
 export default function Navbar() {
   return (
-    <BSNavbar bg="dark" variant="dark" expand="md" sticky="top">
-      <Container>
-        <BSNavbar.Brand as={Link} to="/">
+    <nav className="navbar">
+      <div className="navbar-container">
+        <NavLink to="/" className="navbar-brand">
           League of Legends
-        </BSNavbar.Brand>
-        <BSNavbar.Toggle aria-controls="basic-navbar-nav" />
-        <BSNavbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <Nav.Link as={Link} to="/">
-              Main
-            </Nav.Link>
-            <Nav.Link as={Link} to="/about">
-              About
-            </Nav.Link>
-            <Nav.Link as={Link} to="/all-heroes">
-              All heroes
-            </Nav.Link>
-            <Nav.Link as={Link} to="/special-heroes">
-              Special heroes
-            </Nav.Link>
-            <Nav.Link as={Link} to="/old-heroes">
-              Old heroes
-            </Nav.Link>
-            <Nav.Link as={Link} to="/new-heroes">
-              New heroes
-            </Nav.Link>
-            <Nav.Link as={Link} to="/cart">
-              Cart
-            </Nav.Link>
-          </Nav>
-        </BSNavbar.Collapse>
-      </Container>
-    </BSNavbar>
+        </NavLink>
+
+        <div className="navbar-links">
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Main
+          </NavLink>
+          <NavLink
+            to="/about"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            About
+          </NavLink>
+          <NavLink
+            to="/all-heroes"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            All Heroes
+          </NavLink>
+          <NavLink
+            to="/special-heroes"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Special Heroes
+          </NavLink>
+          <NavLink
+            to="/old-heroes"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Old Heroes
+          </NavLink>
+          <NavLink
+            to="/new-heroes"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            New Heroes
+          </NavLink>
+          <NavLink
+            to="/cart"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Cart
+          </NavLink>
+        </div>
+      </div>
+    </nav>
   );
 }

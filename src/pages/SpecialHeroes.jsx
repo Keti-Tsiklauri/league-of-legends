@@ -1,34 +1,34 @@
 import { useEffect, useState } from "react";
 import HeroList from "../components/HeroList";
+import "./SpecialHeroes.css";
 
 export default function SpecialHeroes() {
   const [champions, setChampions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchChampions = async () => {
       try {
-        // 1️⃣ Get latest version
         const versionsRes = await fetch(
           "https://ddragon.leagueoflegends.com/api/versions.json"
         );
+        if (!versionsRes.ok) throw new Error("Failed to fetch versions");
         const versions = await versionsRes.json();
         const latestVersion = versions[0];
 
-        // 2️⃣ Fetch all champions
         const res = await fetch(
           `https://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/en_US/champion.json`
         );
+        if (!res.ok) throw new Error("Failed to fetch champions list");
         const data = await res.json();
         const champsArray = Object.values(data.data);
 
-        // 3️⃣ Filter only special heroes
         const specialNames = ["Ahri", "Jinx", "Ekko", "Yasuo", "Lux"];
         const special = champsArray.filter((c) =>
           specialNames.includes(c.name)
         );
 
-        // 4️⃣ Fetch details for each special hero
         const detailedChampions = await Promise.all(
           special.map(async (champ) => {
             const res = await fetch(
@@ -40,9 +40,10 @@ export default function SpecialHeroes() {
         );
 
         setChampions(detailedChampions);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching special champions:", error);
+        setError("Unable to load special champions. Please try again later.");
+      } finally {
         setLoading(false);
       }
     };
@@ -51,7 +52,8 @@ export default function SpecialHeroes() {
   }, []);
 
   if (loading)
-    return <p className="text-center mt-5">Loading special champions...</p>;
+    return <p className="status-message">Loading special champions...</p>;
+  if (error) return <p className="status-message error">{error}</p>;
 
   return <HeroList champions={champions} title="Special Heroes" />;
 }
